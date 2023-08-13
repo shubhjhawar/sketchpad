@@ -297,6 +297,10 @@ function changeMode(mode) {
 function changeColor(color) {
   currentColor = color;
   ctx.strokeStyle = currentColor;
+
+  // Update the background color of the colorPicker button
+  const colorPickerButton = document.getElementById("colorPicker");
+  colorPickerButton.style.backgroundColor = currentColor;
 }
 
 function pushToUndoStack() {
@@ -382,3 +386,8 @@ document.getElementById("redoButton").addEventListener("click", redo);
 canvas.width = 800;
 canvas.height = 600;
 changeColor("#000"); // Default color
+
+
+// Set the initial background color of the colorPicker button
+const colorPickerButton = document.getElementById("colorPicker");
+colorPickerButton.style.backgroundColor = currentColor;
