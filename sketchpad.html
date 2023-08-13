@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Sketchpad</title>
+</head>
+<body>
+  <div class="container">
+    <div class="sketchpad">
+      <canvas id="canvas"></canvas>
+    </div>
+    
+    <div class="controls">
+        <button id="clearButton">Clear</button>
+        <button id="undoButton">Undo</button>
+        <button id="redoButton">Redo</button>
+        <button id="freehandMode">Freehand</button>
+        <button id="lineMode">Line</button>
+        <button id="rectangleMode">Rectangle</button>
+        <button id="ellipseMode">Ellipse</button>
+        <label for="colorPicker">Color:</label>
+        <input type="color" id="colorPicker" class="custom-color-picker">
+
+    </div>
+
+  
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
