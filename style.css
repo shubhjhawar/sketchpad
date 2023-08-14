@@ -1,20 +1,22 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #eec37a;
+    background-color: #f0f0f0; 
+
   }
   
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 650px;
     background-color: #f0f0f0; 
   }
  
 .sketchpad {
     border: 5px solid #333;
     margin-right: 20px;
+    margin-bottom: 1px;
     position: relative; 
     .sketchpad {
       background-color: #f0f0f0; 
@@ -22,9 +24,9 @@ body {
     
   }
   
-  /* canvas {
+  canvas {
     border: 1px solid #333;
-  } */
+  }
   
   .controls {
     display: flex;
@@ -53,9 +55,9 @@ body {
 
 
 button, input[type="color"] {
-    margin: 5px;
+    margin: 7px;
     padding: 15px;
-    font-size: 14px;
+    font-size: 16px;
     /* border: 3px; */
     border-color: #fff;
     cursor: pointer;
@@ -92,4 +94,24 @@ button, input[type="color"] {
     box-shadow: none;
   }
   
+  .additional-controls {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px; /* Adjust the margin as needed */
+    background-color: #f0f0f0; 
+
+  }
   
+  .additional-controls button {
+    margin-top: 1px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #19c6e5;
+    color: white;
+  }
