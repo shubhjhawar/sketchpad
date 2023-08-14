@@ -12,27 +12,28 @@
       <canvas id="canvas"></canvas>
     </div>
     
-    <div class="controls">
-        <button id="clearButton">Clear</button>
-        <button id="undoButton">Undo</button>
-        <button id="redoButton">Redo</button>
-        <button id="freehandMode">Freehand</button>
+     <div class="controls">
+       <button id="freehandMode">Freehand</button>
         <button id="lineMode">Line</button>
         <button id="rectangleMode">Rectangle</button>
         <button id="ellipseMode">Ellipse</button>
         <button id="circleMode">Circle</button>
         <button id="squareMode">Square</button>
-        <input type="color" id="colorPicker" class="custom-color-picker">
     </div>
-  
+
   </div>
   
   <div class="additional-controls">
+      <button id="customColorButton" class="custom-color-picker-button">Select Color</button>
+      <input type="color" id="colorPicker" class="hidden-color-picker">
       <button id="cutButton">Cut</button>
       <button id="copyButton">Copy</button>
       <button id="pasteButton">Paste</button>
       <button id="groupButton">Group</button>
       <button id="ungroupButton">Ungroup</button>
+      <button id="undoButton">Undo</button>
+      <button id="redoButton">Redo</button>
+      <button id="clearButton">Clear</button>
   </div>
   
   <script src="script.js"></script>

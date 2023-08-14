@@ -237,7 +237,14 @@ canvas.width = 800;
 canvas.height = 600;
 changeColor("#000"); // Default color
 
+const customColorButton = document.getElementById("customColorButton");
+const colorPicker = document.getElementById("colorPicker");
 
-// Set the initial background color of the colorPicker button
-const colorPickerButton = document.getElementById("colorPicker");
-colorPickerButton.style.backgroundColor = currentColor;
+customColorButton.addEventListener("click", () => {
+  colorPicker.click(); // Open the color picker when the custom button is clicked
+});
+
+colorPicker.addEventListener("input", (e) => {
+  const selectedColor = e.target.value;
+  customColorButton.style.backgroundColor = selectedColor;
+});
