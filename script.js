@@ -170,6 +170,7 @@ let currentMode = "freehand";
 let currentColor = "#000";
 let undoStack = [];
 let redoStack = [];
+let polygonPoints = []; // Array to store polygon vertices
 
 
 
@@ -379,6 +380,7 @@ document.getElementById("freehandMode").addEventListener("click", () => changeMo
 document.getElementById("lineMode").addEventListener("click", () => changeMode("line"));
 document.getElementById("rectangleMode").addEventListener("click", () => changeMode("rectangle"));
 document.getElementById("ellipseMode").addEventListener("click", () => changeMode("ellipse"));
+document.getElementById("polygonMode").addEventListener("click", () => changeMode("polygon"));
 document.getElementById("colorPicker").addEventListener("input", (e) => changeColor(e.target.value));
 document.getElementById("undoButton").addEventListener("click", undo);
 document.getElementById("redoButton").addEventListener("click", redo);
