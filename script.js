@@ -1,6 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+ctx.imageSmoothingEnabled = false;
+
 let drawing = false;
 let x0, y0;
 let startX, startY;
@@ -10,14 +12,11 @@ let undoStack = [];
 let redoStack = [];
 let polygonPoints = []; // Array to store polygon vertices
 
-
-
 function redrawUndoStack() {
   for (const imageData of undoStack) {
     ctx.putImageData(imageData, 0, 0);
   }
 }
-
 
 canvas.addEventListener("mousedown", (e) => {
   drawing = true;
@@ -25,7 +24,7 @@ canvas.addEventListener("mousedown", (e) => {
   x0 = e.clientX - canvasRect.left;
   y0 = e.clientY - canvasRect.top;
 
-  if (currentMode === "line" || currentMode === "rectangle" || currentMode === "ellipse") {
+  if (currentMode === "line" || currentMode === "rectangle" || currentMode === "ellipse" || currentMode === "circle" || currentMode === "square") {
     startX = x0;
     startY = y0;
   }
@@ -33,37 +32,15 @@ canvas.addEventListener("mousedown", (e) => {
 
 });
 
-// canvas.addEventListener("mousemove", (e) => {
-//   if (!drawing) return;
-//   const canvasRect = canvas.getBoundingClientRect();
-//   const x = e.clientX - canvasRect.left;
-//   const y = e.clientY - canvasRect.top;
-
-//   if (currentMode === "freehand") {
-//     drawFreehand(x, y);
-//     console.log("drawing...");
-// } else if (currentMode === "line") {
-//   console.log(startX, startY, x, y);
-//   drawLine(startX, startY, x, y);
-// } else if (currentMode === "rectangle") {
-//   drawRectangle(startX, startY, x, y);
-// } else if (currentMode === "ellipse") {
-//   drawEllipse(startX, startY, x, y);
-// }
-// });
-
-
-
 canvas.addEventListener("mousemove", (e) => {
   if (!drawing) return;
   const canvasRect = canvas.getBoundingClientRect();
-  const x = e.clientX - canvasRect.left;
-  const y = e.clientY - canvasRect.top;
+  const x = Math.round(e.clientX - canvasRect.left); // Round coordinates
+  const y = Math.round(e.clientY - canvasRect.top);
 
   if (currentMode === "freehand") {
     drawFreehand(x, y);
-  } else if (currentMode === "line" || currentMode === "rectangle" || currentMode === "ellipse") {
-    // Clear the canvas and redraw previous shapes
+  } else if (currentMode === "line" || currentMode === "rectangle" || currentMode === "ellipse" || currentMode === "circle" || currentMode === "square") {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     redrawUndoStack();
 
@@ -73,6 +50,10 @@ canvas.addEventListener("mousemove", (e) => {
       drawRectangle(startX, startY, x, y);
     } else if (currentMode === "ellipse") {
       drawEllipse(startX, startY, x, y);
+    } else if (currentMode === "circle") {
+      drawCircle(startX, startY, x, y);
+    } else if (currentMode === "square") {
+      drawSquare(startX, startY, x, y);
     }
   }
 });
@@ -94,6 +75,10 @@ canvas.addEventListener("mouseup", (e) => {
         drawRectangle(startX, startY, x0, y0);
       } else if (currentMode === "ellipse") {
         drawEllipse(startX, startY, x0, y0);
+      }else if (currentMode === "circle") {
+        drawCircle(startX, startY, x0, y0); // Add this line
+      } else if (currentMode === "square") {
+        drawSquare(startX, startY, x0, y0); // Add this line
       }      
     }
     pushToUndoStack();
@@ -112,8 +97,14 @@ canvas.addEventListener("mouseout", () => {
         drawRectangle(startX, startY, x0, y0);
       } else if (currentMode === "ellipse") {
         drawEllipse(startX, startY, x0, y0);
+      } else if (currentMode === "circle") {
+        drawCircle(startX, startY, x0, y0); // Add this line
+      } else if (currentMode === "square") {
+        drawSquare(startX, startY, x0, y0); // Add this line
       }
       pushToUndoStack();
+      redrawUndoStack(); // Call the defined function
+
 
     }
   }
@@ -206,6 +197,24 @@ function drawEllipse(x1, y1, x2, y2) {
   ctx.stroke();
 }
 
+function drawCircle(x1, y1, x2, y2) {
+  const radius = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+  ctx.strokeStyle = currentColor;
+  ctx.beginPath();
+  ctx.arc(x1, y1, radius, 0, 2 * Math.PI);
+  ctx.stroke();
+}
+
+function drawSquare(x1, y1, x2, y2) {
+  const sideLength = Math.min(Math.abs(x2 - x1), Math.abs(y2 - y1));
+  const x = x1 < x2 ? x1 : x1 - sideLength;
+  const y = y1 < y2 ? y1 : y1 - sideLength;
+  
+  ctx.strokeStyle = currentColor;
+  ctx.strokeRect(x, y, sideLength, sideLength);
+}
+
+
 document.getElementById("colorPicker").addEventListener("input", (e) => {
   const selectedColor = e.target.value;
   document.getElementById("selectedColor").style.backgroundColor = selectedColor;
@@ -218,7 +227,8 @@ document.getElementById("freehandMode").addEventListener("click", () => changeMo
 document.getElementById("lineMode").addEventListener("click", () => changeMode("line"));
 document.getElementById("rectangleMode").addEventListener("click", () => changeMode("rectangle"));
 document.getElementById("ellipseMode").addEventListener("click", () => changeMode("ellipse"));
-document.getElementById("polygonMode").addEventListener("click", () => changeMode("polygon"));
+document.getElementById("circleMode").addEventListener("click", () => changeMode("circle")); 
+document.getElementById("squareMode").addEventListener("click", () => changeMode("square")); 
 document.getElementById("colorPicker").addEventListener("input", (e) => changeColor(e.target.value));
 document.getElementById("undoButton").addEventListener("click", undo);
 document.getElementById("redoButton").addEventListener("click", redo);
