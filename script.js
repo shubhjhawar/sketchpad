@@ -10,7 +10,6 @@ let currentMode = "freehand";
 let currentColor = "#000";
 let undoStack = [];
 let redoStack = [];
-let polygonPoints = []; // Array to store polygon vertices
 
 function redrawUndoStack() {
   for (const imageData of undoStack) {
