@@ -181,6 +181,8 @@ function drawRectangle(x1, y1, x2, y2) {
   const height = y2 - y1;
 
   ctx.strokeStyle = currentColor;
+  ctx.fillStyle = currentColor; // Set the fill color
+  ctx.fillRect(x1, y1, width, height); // Fill the rectangle
   ctx.strokeRect(x1, y1, width, height);
 }
 
@@ -191,16 +193,20 @@ function drawEllipse(x1, y1, x2, y2) {
   const centerY = y1 + radiusY;
 
   ctx.strokeStyle = currentColor;
+  ctx.fillStyle = currentColor;
   ctx.beginPath();
   ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
+  ctx.fill();
   ctx.stroke();
 }
 
 function drawCircle(x1, y1, x2, y2) {
   const radius = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
   ctx.strokeStyle = currentColor;
+  ctx.fillStyle = currentColor;
   ctx.beginPath();
   ctx.arc(x1, y1, radius, 0, 2 * Math.PI);
+  ctx.fill();
   ctx.stroke();
 }
 
@@ -210,6 +216,8 @@ function drawSquare(x1, y1, x2, y2) {
   const y = y1 < y2 ? y1 : y1 - sideLength;
   
   ctx.strokeStyle = currentColor;
+  ctx.fillStyle = currentColor;
+  ctx.fillRect(x, y, sideLength, sideLength);
   ctx.strokeRect(x, y, sideLength, sideLength);
 }
 
