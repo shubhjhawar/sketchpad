@@ -232,7 +232,7 @@ document.getElementById("colorPicker").addEventListener("input", (e) => changeCo
 document.getElementById("undoButton").addEventListener("click", undo);
 document.getElementById("redoButton").addEventListener("click", redo);
 
-canvas.width = 800;
+canvas.width = 1000;
 canvas.height = 600;
 changeColor("#000"); // Default color
 
@@ -246,4 +246,58 @@ customColorButton.addEventListener("click", () => {
 colorPicker.addEventListener("input", (e) => {
   const selectedColor = e.target.value;
   customColorButton.style.backgroundColor = selectedColor;
+});
+
+
+let clipboard = null;
+
+function cut() {
+  const shapesToCut = shapesInSelection(selection, shapes);
+  const remainingShapes = shapes.filter(shape => !isShapeInSelection(shape, selection));
+  clipboard = shapesToCut;
+  return remainingShapes;
+}
+
+function copy() {
+  clipboard = shapesInSelection(selection, shapes);
+}
+
+function paste() {
+  if (clipboard) {
+    const copiedShapes = clipboard.map(shape => ({
+      ...shape,
+      x: shape.x + x,
+      y: shape.y + y
+    }));
+    clipboard = null;
+    return copiedShapes;
+  }
+  return [];
+}
+
+function shapesInSelection(selection, shapes) {
+  return shapes.filter(shape => isShapeInSelection(shape, selection));
+}
+
+function isShapeInSelection(shape, selection) {
+  return (
+    shape.x >= selection.x &&
+    shape.x <= selection.x + selection.width &&
+    shape.y >= selection.y &&
+    shape.y <= selection.y + selection.height
+  );
+}
+
+document.getElementById("copyButton").addEventListener("click", () => {
+  if (selection) {
+    copy(selection, shapes);
+  }
+});
+
+document.getElementById("pasteButton").addEventListener("click", () => {
+  if (clipboard) {
+    const newShapes = paste(20, 20); // Adjust the pasted shapes' position
+    shapes.push(...newShapes);
+    redrawCanvas(); // Call your redraw function here
+  }
 });

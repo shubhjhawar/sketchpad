@@ -9,11 +9,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 520px;
     margin-top: 15px;
-    margin-right: 100px;
-    height: 620px;
-    width: 600px;
+    /* margin-left: 520px;
+    margin-right: 100px; */
+    /* height: 620px;
+    width: 600px; */
     background-color: #f0f0f0; 
     margin-bottom: 5px;
   }
